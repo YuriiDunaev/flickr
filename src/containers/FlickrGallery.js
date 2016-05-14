@@ -1,53 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-var Ajax = require('react-ajax');
 import * as FlickrGalleryActions from '../actions/FlickrGalleryActions';
+import FlickrGalleryItems from '../components/FlickrGalleryItems/index';
+import styles from './flickr_gallery.less'
 
 class FlickrGallery extends Component {
 	static propTypes = {
-		filter      : PropTypes.string.isRequired
+		filter          : PropTypes.string.isRequired,
+		items           : PropTypes.array.isRequired,
+		userKey         : PropTypes.string.isRequired,
+		format          : PropTypes.string.isRequired,
+		itemsLength     : PropTypes.number.isRequired,
+		tags            : PropTypes.string.isRequired
 	};
 
 	constructor(props) {
 		super(props);
+		
 		this.state = {
-			key             : '7e201742595b8f6d9372a63a4e2edaa0',
-			format          : 'json',
-			itemsLength     : 20,
-			tags            : 'virtual reality'
+			url : `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.props.userKey}&tags=${this.props.tags}&tagmode=any&per_page=${this.props.itemsLength}&format=${this.props.format}&nojsoncallback=1`
 		};
 	};
 
 	componentDidMount() {
-		$.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.state.key}&tags=${this.state.tags}&tagmode=any&per_page=${this.state.itemsLength}&format=${this.state.format}&nojsoncallback=1`, function (result) {
-			let photo;
-			let photo_url;
-			let page_url;
-
-			for (let i=0; i < result.photos.photo.length; i++) {
-				photo = result.photos.photo[i];
-
-				photo_url = `http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_${this.props.filter}.jpg`;
-				page_url = `http://www.flickr.com/photos/${photo.owner}/${photo.id}`;
-
-				console.log(photo, photo.title, photo_url, page_url);
-			}
+		$.get(this.state.url, function (result) {
+			this.props.FlickrGalleryActions.addItems(result.photos.photo);
 		}.bind(this));
 	};
 
-	responseAjax(data) {
-		console.log(data);
-	}
-
 	render() {
-
-		console.log(this.props);
-
+		console.log('render FlickrGallery');
 		return (
-			<div className='gallery'>
-				1111
-
+			<div className={styles.flickr_gallery}>
+				{this.props.items.length ? <FlickrGalleryItems {...this.props} /> : 'Загрузка...'}
 			</div>
 		)
 	}
@@ -55,13 +41,18 @@ class FlickrGallery extends Component {
 
 function mapStateToProps(state) {
 	return {
-		filter      : state.FlickrGallery.filter
+		filter          : state.FlickrGallery.filter,
+		items           : state.FlickrGallery.items,
+		userKey         : state.FlickrGallery.userKey,
+		format          : state.FlickrGallery.format,
+		itemsLength     : state.FlickrGallery.itemsLength,
+		tags            : state.FlickrGallery.tags
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		FormActions: bindActionCreators(FlickrGalleryActions, dispatch)
+		FlickrGalleryActions: bindActionCreators(FlickrGalleryActions, dispatch)
 	}
 }
 
