@@ -33,7 +33,7 @@ class FlickrGallery extends Component {
 		console.log('render FlickrGallery');
 		return (
 			<div className={styles.flickr_gallery}>
-				{this.props.items.length ? <FlickrGalleryItems {...this.props} /> : 'Загрузка...'}
+				{this.props.items.length ? <FlickrGalleryItems {...this.props} /> : <div className={styles.loading}>Загрузка...</div>}
 			</div>
 		)
 	}

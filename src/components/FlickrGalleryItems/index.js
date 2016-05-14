@@ -21,7 +21,7 @@ export default class FlickrGalleryItems extends Component {
 					href={page_url}
 					title={photo.title}
 					src={photo_src}
-				    id={photo.id}
+					photo={photo}
 				/>
 			);
 		}
