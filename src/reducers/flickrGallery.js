@@ -4,7 +4,7 @@ import {
 } from '../constants/FlickrGalleryConst'
 
 const initialState = {
-	filter          : 't',
+	filter          : 'm',
 	items           : [],
 	userKey         : 'c353b9b7a0695b77bad289fa3b21007d',
 	format          : 'json',

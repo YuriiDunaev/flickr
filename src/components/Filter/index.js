@@ -22,7 +22,7 @@ export default class Filter extends Component {
 			items.push(
 				<a
 					onClick={::this.setFormat}
-					className={item === this.props.filter ? styles.link_active :styles.link_normal}
+					className={item === this.props.filter ? styles.link_active : styles.link_normal}
 					key={index}
 					href={item}
 				>
@@ -54,7 +54,13 @@ export default class Filter extends Component {
 
 		return (
 			<div className={styles.filter}>
+				<div className={styles.title}>Размеры</div>
 				{this.addItems(filters)}
+				<div className={styles.title}>Сортировка</div>
+				<a href="#!" className={styles.link_normal}>по названию (A..Я)</a>
+				<a href="#!" className={styles.link_normal}>по названию (Я..A)</a>
+				<a href="#!" className={styles.link_normal}>по дате создания &uarr;</a>
+				<a href="#!" className={styles.link_normal}>по дате создания &darr;</a>
 			</div>
 		);
 	}

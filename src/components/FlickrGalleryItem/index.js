@@ -46,6 +46,8 @@ export default class FlickrGalleryItem extends Component {
 
 	render() {
 
+		console.log(this.props);
+
 		return (
 			<div className={styles.item + ' size--' + this.props.filter}>
 				<div className={styles.image}>
