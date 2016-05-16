@@ -5,7 +5,13 @@ export default class FlickrGalleryItem extends Component {
 	onClick(e) {
 		e.preventDefault();
 
-		let url = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${this.props.userKey}&photo_id=${this.props.photo.id}&format=${this.props.format}&nojsoncallback=1`
+		let url = `https://api.flickr.com/services/rest/?
+					method=flickr.photos.getSizes&
+					api_key=${this.props.userKey}&
+					photo_id=${this.props.photo.id}&
+					format=${this.props.format}&
+					nojsoncallback=1`
+			;
 
 		$.get(url, function (result) {
 			if ( result.sizes.size.length ) {
@@ -25,7 +31,21 @@ export default class FlickrGalleryItem extends Component {
 		this.refs.popup.className = styles.popup_hide;
 	}
 
+	setInfo() {
+		let info = [];
+		if (this.props.filter === 'm') {
+			info.push(
+				<div className={styles.info}>
+					<div className={styles.title}>{this.props.title}</div>
+					<a href={this.props.href} className={styles.link}>{this.props.href}</a>
+				</div>
+			);
+		}
+		return info;
+	}
+
 	render() {
+
 		return (
 			<div className={styles.item + ' size--' + this.props.filter}>
 				<div className={styles.image}>
@@ -39,10 +59,7 @@ export default class FlickrGalleryItem extends Component {
 						</div>
 					</div>
 				</div>
-				<div className={styles.info}>
-					<div className={styles.title}>{this.props.title}</div>
-					<a href={this.props.href} className={styles.link}>{this.props.href}</a>
-				</div>
+				{this.setInfo()}
 			</div>
 		);
 	}

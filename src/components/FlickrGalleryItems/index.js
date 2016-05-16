@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 import FlickrGalleryItem from './../FlickrGalleryItem/index'
+import Filter from './../Filter/index';
 import styles from './flickr_gallery_items.less'
 
 export default class FlickrGalleryItems extends Component {
+	setFormat(e) {
+		e.preventDefault();
+
+		console.log(this.props, e.currentTarget.getAttribute('href'));
+	}
+
 	addItems(obj) {
 		let photo;
+		let filter;
 		let photo_src;
 		let page_url;
 		let items = [];
 
 		for (let i=0; i < obj.length; i++) {
 			photo = obj[i];
-			photo_src = `http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_${this.props.filter}.jpg`;
+			filter = this.props.filter.length === 0 ? '' : `_${this.props.filter}`;
+			photo_src = `http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}${filter}.jpg`;
 			page_url = `http://www.flickr.com/photos/${photo.owner}/${photo.id}`;
 
 			items.push(
@@ -34,7 +43,8 @@ export default class FlickrGalleryItems extends Component {
 		let items = this.addItems(this.props.items);
 		
 		return (
-			<div className={styles.flickr_gallery_items}>
+			<div className={styles.items}>
+				<Filter {...this.props} />
 				{items}
 			</div>
 		);

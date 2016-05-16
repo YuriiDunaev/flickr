@@ -3,18 +3,21 @@
 	overflow: hidden;
 	justify-content: space-between;
 	align-items: center;
+	margin: 2rem;
 }
 
 :global(.size--m) {
-	width: 20rem;
-	margin: 4rem;
+	width: 22rem;
 }
 
 .image {
-	width: 10rem;
-	height: 10rem;
 	overflow: hidden;
 	position: relative;
+
+	:global(.size--m) & {
+		width: 10rem;
+		height: 10rem;
+	}
 
 	img {
 		display: block;
@@ -35,7 +38,7 @@
 
 .info {
 	overflow: hidden;
-	width: 9rem;
+	width: 11rem;
 }
 
 .title {

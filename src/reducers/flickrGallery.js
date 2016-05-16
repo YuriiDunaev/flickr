@@ -4,9 +4,9 @@ import {
 } from '../constants/FlickrGalleryConst'
 
 const initialState = {
-	filter          : 'm',
+	filter          : 't',
 	items           : [],
-	userKey         : '7e201742595b8f6d9372a63a4e2edaa0',
+	userKey         : 'c353b9b7a0695b77bad289fa3b21007d',
 	format          : 'json',
 	itemsLength     : 20,
 	tags            : 'nature'

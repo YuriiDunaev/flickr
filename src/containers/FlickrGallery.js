@@ -19,7 +19,13 @@ class FlickrGallery extends Component {
 		super(props);
 		
 		this.state = {
-			url : `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${this.props.userKey}&tags=${this.props.tags}&tagmode=any&per_page=${this.props.itemsLength}&format=${this.props.format}&nojsoncallback=1`
+			url : `https://api.flickr.com/services/rest/?
+				method=flickr.photos.search&
+				api_key=${this.props.userKey}&
+				tags=${this.props.tags}&
+				per_page=${this.props.itemsLength}&
+				format=${this.props.format}&
+				nojsoncallback=1`
 		};
 	};
 
@@ -32,7 +38,7 @@ class FlickrGallery extends Component {
 	render() {
 		console.log('render FlickrGallery');
 		return (
-			<div className={styles.flickr_gallery}>
+			<div className={styles.gallery}>
 				{this.props.items.length ? <FlickrGalleryItems {...this.props} /> : <div className={styles.loading}>Загрузка...</div>}
 			</div>
 		)
